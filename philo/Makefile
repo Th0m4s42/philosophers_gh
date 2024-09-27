@@ -11,21 +11,22 @@ Purple=\033[0;35m
 Cyan=\033[0;36m
 White=\033[0;37m
 
+SRC_DIR := srcs/
 OBJ_DIR := objs/
 
 SRCS := \
-		main.c \
+	$(SRC_DIR)main.c \
 
 INCLUDES := -I includes
 
-OBJS := $(patsubst %.c,$(OBJ_DIR)%.o,$(SRCS))
+OBJS := $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) $(INCLUDES) -c -o $@ $<
 	@echo "$(Cyan)Compiling $<...$(White)"
 
-$(NAME) : $(LIBFT_LIB) $(OBJS)
+$(NAME) : $(OBJS)
 	@$(CC) $(FLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
 	@echo "$(Green)$(NAME) CREATED $(White)"
 
